@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Thai Hand Written</title>
+<style>
+  h1 {
+  text-align: center;
+  }
+#sketchpadapp {
+  /* Prevent nearby text being highlighted when accidentally dragging mouse outside confines of the canvas */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+  
+}
+
+#ctx {
+  height:300px;
+  width:300px;
+  border:4px solid rgb(255, 255, 255);
+  border-radius:5%;
+  padding: 0;
+  animation: border 1s ease infinite;
+  box-shadow: 0px 0px 10px 5px black;
+  animation: boxshadow 1s ease infinite;
+  background-color: black;
+  display: inline-block;
+  text-align: center;
+  
+}
+
+@keyframes border {
+  0% {
+    border-color: rgb(255, 0, 0); /* กำหนดสีแดง */
+  }
+  16.7% {
+    border-color: rgb(255, 127, 0); /* กำหนดสีส้ม */
+  }
+  33.3% {
+    border-color: rgb(255, 255, 0); /* กำหนดสีเหลือง */
+  }
+  50% {
+    border-color: rgb(0, 255, 0); /* กำหนดสีเขียว */
+  }
+  66.7% {
+    border-color: rgb(0, 0, 255); /* กำหนดสีน้ำเงิน */
+  }
+  83.3% {
+    border-color: rgb(75, 0, 130); /* กำหนดสีน้ำเงินเข้ม */
+  }
+  100% {
+    border-color: rgb(148, 0, 211); /* กำหนดสีม่วง */
+  }
+}
+
+@keyframes boxshadow {
+  0% {
+    box-shadow: 0px 0px 10px 5px rgb(255, 0, 0); /* กำหนดสีแดง */
+  }
+  16.7% {
+    box-shadow: 0px 0px 10px 5px rgb(255, 127, 0); /* กำหนดสีส้ม */
+  }
+  33.3% {
+    box-shadow: 0px 0px 10px 5px rgb(255, 255, 0); /* กำหนดสีเหลือง */
+  }
+  50% {
+    box-shadow: 0px 0px 10px 5px rgb(0, 255, 0); /* กำหนดสีเขียว */
+  }
+  66.7% {
+    box-shadow: 0px 0px 10px 5px rgb(0, 0, 255); /* กำหนดสีน้ำเงิน */
+  }
+  83.3% {
+    box-shadow: 0px 0px 10px 5px rgb(75, 0, 130); /* กำหนดสีน้ำเงินเข้ม */
+  }
+  100% {
+    box-shadow: 0px 0px 10px 5px rgb(148, 0, 211); /* กำหนดสีม่วง */
+  }
+}
+
+@keyframes rainbow_button {
+  0% {
+    background-color: rgb(255, 0, 0); /* กำหนดสีแดง */
+  }
+  16.7% {
+    background-color: rgb(255, 127, 0); /* กำหนดสีส้ม */
+  }
+  33.3% {
+    background-color: rgb(255, 255, 0); /* กำหนดสีเหลือง */
+  }
+  50% {
+    background-color: rgb(0, 255, 0); /* กำหนดสีเขียว */
+  }
+  66.7% {
+    background-color: rgb(0, 0, 255); /* กำหนดสีน้ำเงิน */
+  }
+  83.3% {
+    background-color: rgb(75, 0, 130); /* กำหนดสีน้ำเงินเข้ม */
+  }
+  100% {
+    background-color: rgb(148, 0, 211); /* กำหนดสีม่วง */
+  }
+}
+
+#clear_button{
+  margin-left: 0px;
+  font-size: 25px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  font-family: cursive;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #9e80e4;
+  box-shadow: 0px 0px 10px 5px#7256b5;
+  text-align: center;
+}
+
+#clear_button:hover {
+  background-color: #7256b5; /* กำหนดสีพื้นหลังใหม่เมื่อเมาส์วาง */
+  border: none; /* กำหนดลักษณะเส้นขอบ */
+  color: white; /* กำหนดสีตัวอักษร */
+  animation: rainbow_button 0.5s linear infinite;
+  animation: boxshadow 1s ease infinite;
+}
+
+p{
+  font-family: cursive;
+  margin-top: 6%;
+  font-size: 20px;
+  text-align: center;
+  display: fixed;
+}
+
+.heading{
+  font-family: cursive;
+  font-weight: 700;
+  font-size: 60px;
+  display: fixed;
+  text-align: center;
+}
+
+.buttons_div{
+  margin: auto;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.predicted_answer{
+  text-align: center;
+  margin: 0 auto;
+  padding: 3% 5%;
+  padding-top: 0;
+}
+
+#prediction_heading{
+  font-family: cursive;
+  margin-top: -50%;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  transform: translate(55%, 10%);
+}
+
+#result{
+  font-family: cursive;
+  font-size: 40px;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  transform: translate(-55%, 100%);
+}
+
+#confidence{
+  font-family: cursive;
+  font-size: 18px;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  transform: translate(-80%, 400%);
+}
+
+#title{
+  padding: 1.5% 15%;
+  margin: 0 auto;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+  <section id="title">
+    <h1 class="heading">Thai Handwritten Recognition</h1>
+    <p>Source code is available on github.</p>
+  </section>
+  <section id="content">
+    <div id="sketchpadapp">
+      <div class="">
+        <canvas id="ctx" width="300" height="300"></canvas>
+      </div>
+    
+      <div class="button_div">
+        <p id="response"></p>
+        <button onclick="reset()"id="clear_button">Clear</button>
+      </div>
+    </div>  
+    <div class="predicted_answer col-sm-6">
+      <h2 id="prediction_heading">Prediction</h2>
+      <h1 id="result">-</h1>
+      <pre id="confidence">Confidence</pre>
+    </div>
+  </section>
+<script>
+  // สร้างคอนเทนเนอร์
+var canvas = document.getElementById("ctx");
+var context = canvas.getContext("2d");
+
+// กำหนดสีของรูปร่าง
+context.fillStyle = "red";
+
+// สร้างตัวแปรเพื่อเก็บตำแหน่งของเมาส์
+var mouseX = 0;
+var mouseY = 0;
+var click_handle = false
+// ฟังก์ชันสำหรับเมื่อเมาส์เคลื่อนไหวบน Canvas
+function handleMouseMove(event) {
+  // คำนวณตำแหน่ง X และ Y ของเมาส์บน Canvas
+  mouseX = event.clientX - canvas.offsetLeft;
+  mouseY = event.clientY - canvas.offsetTop;
+}
+
+function handleClick(event) {
+  // คำนวณตำแหน่ง X และ Y ของเมาส์บน Canvas
+  console.log(event)
+  click_handle = event
+}
+
+// เพิ่มการฟังเหตุการณ์เมาส์เคลื่อนไหวบน Canvas
+canvas.addEventListener("mousemove", handleMouseMove);
+canvas.addEventListener("mousedown", ()=>{
+  handleClick(true)
+});
+canvas.addEventListener("mouseup", ()=>{
+  handleClick(false)
+  save()
+});
+// ฟังก์ชันสำหรับวาดบน Canvas ตามตำแหน่งของเมาส์
+function draw() {
+  // ล้าง Canvas
+  
+
+  // วาดวงกลมในตำแหน่งของเมาส์
+  context.beginPath();
+  if(click_handle){
+    context.arc(mouseX, mouseY, 5, 0, 2 * Math.PI);
+    context.fill();
+  }
+  console.log(click_handle)
+
+  // เรียกใช้ฟังก์ชัน draw ใหม่เมื่อเกิดการเคลื่อนไหว
+  requestAnimationFrame(draw);
+}
+
+
+function save(){
+  var imageData = canvas.toDataURL();
+
+// ส่งข้อมูลไปยังเซิร์ฟเวอร์
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "/ai", true);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    console.log(xhr.responseText);
+    document.getElementById('result').innerHTML = xhr.responseText
+    document.getElementById('confidence').innerHTML = "Confidence: "+(xhr.responseText*100).toFixed(2) + "%";
+    console.log("Upload complete");
+  }
+};
+
+xhr.send("image=" + encodeURIComponent(imageData));
+}
+
+// Clear canvas and call draw function
+context.clearRect(0, 0, canvas.width, canvas.height);
+draw();
+
+function reset() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function displayLabel(data) { 
+    var max = data[0];    
+    var maxIndex = 0;     
+    for (var i = 1; i < data.length; i++) {        
+      if (data[i] > max) {            
+        maxIndex = i;            
+        max = data[i];        
+      }
+    }
+}
+</script>
+</body>
+</html>
